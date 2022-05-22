@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_18icx5k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="shoppingcart_workflow" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Process Start">
+      <bpmn:outgoing>Flow_0h07yzn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_03ei17v" sourceRef="Activity_13t7kci" targetRef="Event_1lil1u4" />
+    <bpmn:sequenceFlow id="Flow_0h07yzn" sourceRef="StartEvent_1" targetRef="validate_address" />
+    <bpmn:sequenceFlow id="Flow_14wpwmm" sourceRef="validate_address" targetRef="Event_06uhsiu" />
+    <bpmn:serviceTask id="validate_address" name="Validate Address" camunda:class="com.sample.shoppingcart.delegates.ValidateAddressDelegate">
+      <bpmn:incoming>Flow_0h07yzn</bpmn:incoming>
+      <bpmn:outgoing>Flow_14wpwmm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1f8tre5" sourceRef="Event_06uhsiu" targetRef="Activity_13t7kci" />
+    <bpmn:intermediateCatchEvent id="Event_06uhsiu" name="Address Validated">
+      <bpmn:incoming>Flow_14wpwmm</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f8tre5</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0sa5r00" messageRef="Message_0db4yql" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_1eckxos" name="Process End">
+      <bpmn:incoming>Flow_1nyxjfw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_13t7kci" name="Reserve Payment" camunda:class="com.sample.shoppingcart.delegates.ReservePaymentDelegate">
+      <bpmn:incoming>Flow_1f8tre5</bpmn:incoming>
+      <bpmn:outgoing>Flow_03ei17v</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1nyxjfw" sourceRef="Event_1lil1u4" targetRef="Event_1eckxos" />
+    <bpmn:intermediateCatchEvent id="Event_1lil1u4" name="Payment Reserved">
+      <bpmn:incoming>Flow_03ei17v</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nyxjfw</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1xiqkcc" messageRef="Message_1nm2chw" />
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_0db4yql" name="AddressValidated" />
+  <bpmn:message id="Message_1nm2chw" name="PaymentReserved" />
+  <bpmn:message id="Message_0qe0fuy" name="InventoryAllocated" />
+  <bpmn:message id="Message_1npmjte" name="OrderPlaced" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="shoppingcart_workflow">
+      <bpmndi:BPMNEdge id="Flow_1nyxjfw_di" bpmnElement="Flow_1nyxjfw">
+        <di:waypoint x="718" y="117" />
+        <di:waypoint x="772" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f8tre5_di" bpmnElement="Flow_1f8tre5">
+        <di:waypoint x="438" y="117" />
+        <di:waypoint x="510" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14wpwmm_di" bpmnElement="Flow_14wpwmm">
+        <di:waypoint x="360" y="117" />
+        <di:waypoint x="402" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h07yzn_di" bpmnElement="Flow_0h07yzn">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="260" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03ei17v_di" bpmnElement="Flow_03ei17v">
+        <di:waypoint x="610" y="117" />
+        <di:waypoint x="682" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="164" y="142" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1b6mfsy_di" bpmnElement="validate_address">
+        <dc:Bounds x="260" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ekzu3e_di" bpmnElement="Event_06uhsiu">
+        <dc:Bounds x="402" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="376" y="73" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0t7oosw_di" bpmnElement="Activity_13t7kci">
+        <dc:Bounds x="510" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0z8a3qv_di" bpmnElement="Event_1lil1u4">
+        <dc:Bounds x="682" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="676" y="66" width="48" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_08l82er_di" bpmnElement="Event_1eckxos">
+        <dc:Bounds x="772" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="758" y="149" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

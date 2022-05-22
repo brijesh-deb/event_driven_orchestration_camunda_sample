@@ -1,0 +1,23 @@
+#spring.datasource.url: jdbc:h2:file:./camunda-h2-database
+server:
+  port: 9001
+spring:
+  kafka:
+    properties:
+      schema.registry.url: http://localhost:8081
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      group-id: group_id
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        specific.avro.reader: true
+  datasource:
+    url: jdbc:h2:file:./camunda-h2-database
+camunda.bpm.admin-user:
+  id: admin
+  password: admin

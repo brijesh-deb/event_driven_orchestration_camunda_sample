@@ -1,0 +1,10 @@
+{"namespace": "example.avro",
+  "type": "record",
+  "name": "ShippingAddress",
+  "fields": [
+    {"name": "card_id", "type": "string"},
+    {"name": "street", "type": "string"},
+    {"name": "state",  "type": "string"},
+    {"name": "post_code",  "type": "string"}
+  ]
+}

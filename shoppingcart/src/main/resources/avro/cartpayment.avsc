@@ -1,0 +1,8 @@
+{"namespace": "example.avro",
+  "type": "record",
+  "name": "CartPayment",
+  "fields": [
+    {"name": "card_id", "type": "string"},
+    {"name": "amount", "type": "string"}
+  ]
+}

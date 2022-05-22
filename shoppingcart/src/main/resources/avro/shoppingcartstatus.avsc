@@ -1,0 +1,8 @@
+{"namespace": "example.avro",
+  "type": "record",
+  "name": "ShoppingCartStatus",
+  "fields": [
+    {"name": "cart_id", "type": "string"},
+    {"name": "status",  "type": "string"}
+  ]
+}
